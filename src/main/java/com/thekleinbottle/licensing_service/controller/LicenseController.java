@@ -1,5 +1,6 @@
 package com.thekleinbottle.licensing_service.controller;
 
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -42,9 +43,10 @@ public class LicenseController {
 
     @PostMapping
     public ResponseEntity<String> createLicense(@PathVariable("organizationId") String organizationId,
-            @RequestBody License request) {
+            @RequestBody License request,
+            @RequestHeader(value="Accept-Language", required=false) Locale locale) {
         
-        return ResponseEntity.ok(licenseService.createLicense(request, organizationId));
+        return ResponseEntity.ok(licenseService.createLicense(request, organizationId, locale));
     }
 
     @DeleteMapping(value="/{licenseId}")
